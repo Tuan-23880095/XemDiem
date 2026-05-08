@@ -186,7 +186,7 @@
             const mssv = prompt("Vui lòng nhập MSSV của bạn để lấy lại mật khẩu:");
             if(mssv) {
                 // Dán link Apps Script của bạn vào biến dưới đây
-                const urlAppsScript = "https://script.google.com/macros/s/AKfycbzR5YDF0k-7271IXoUpOmNz81TQcO2i2dv1CuEAbA6hUMJk3KIpYo8MZ0GccW4JW99F3g/exec"; 
+                const urlAppsScript = "https://script.google.com/macros/s/AKfycbzZQE5wo2pJ-359ouPMJZ388et9K_Wg0OPnJvL85fOB7zjHQYbhlM7IEkm9kOnRGXAwYA/exec"; 
                 fetch(`${urlAppsScript}?mssv=${mssv}`)
                 .then(res => alert("Nếu MSSV hợp lệ, mật khẩu sẽ được gửi vào email sinh viên."));
             }

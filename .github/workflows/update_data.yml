@@ -1,0 +1,28 @@
+name: Tự động cập nhật dữ liệu điểm
+on:
+  push:
+    paths:
+      - 'danh_sach_diem.csv' # Kích hoạt khi file CSV thay đổi
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Cài đặt Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Chạy script xử lý dữ liệu
+        run: python process_data.py
+
+      - name: Commit và Push file JSON mới
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          git add diem_sinh_vien/*.json
+          git commit -m "Cập nhật dữ liệu điểm mới" || echo "Không có thay đổi"
+          git push

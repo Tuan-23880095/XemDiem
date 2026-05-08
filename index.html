@@ -5,53 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Phiếu Điểm Sinh Viên - KNLVN</title>
     <style>
-        :root { --blue: #0056b3; --red: #b30000; --green: #28a745; }
+        :root { --blue: #0056b3; --red: #b30000; --green: #218838; }
         body { font-family: 'Times New Roman', Times, serif; background: #f4f5f7; padding: 20px; margin: 0; }
         
-        /* Giao diện Đăng nhập */
         .login-box { max-width: 400px; margin: 50px auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center; }
         .login-box img { width: 140px; margin-bottom: 10px; }
         .login-box input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
         .login-box button { width: 100%; padding: 12px; background: var(--blue); color: #fff; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
         
-        /* Giao diện Phiếu Điểm A4 */
         .report { max-width: 850px; margin: 0 auto; background: #fff; padding: 40px; box-shadow: 0 0 20px rgba(0,0,0,0.15); display: none; }
         
-        /* Cấu trúc Header 2 Logo */
-        .header-container { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #000; padding-bottom: 15px; margin-bottom: 20px; }
-        .logo-side { width: 120px; height: auto; }
+        .header-container { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #000; padding-bottom: 15px; margin-bottom: 15px; }
+        .logo-side { width: 110px; height: auto; }
         .header-text { text-align: center; flex: 1; padding: 0 10px; }
-        .header-text h3 { margin: 0; font-size: 16px; text-transform: uppercase; line-height: 1.4; }
-        .header-text h2 { margin: 10px 0 5px 0; font-size: 22px; color: var(--red); }
-        .header-text p { margin: 0; font-style: italic; font-size: 15px; }
+        .header-text h3 { margin: 0; font-size: 15px; text-transform: uppercase; line-height: 1.4; }
+        .header-text h2 { margin: 8px 0 5px 0; font-size: 20px; color: var(--red); }
+        .header-text p { margin: 0; font-style: italic; font-size: 14px; }
+
+        .access-timestamp { text-align: right; font-style: italic; font-size: 13px; color: #555; margin-bottom: 10px; }
 
         .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; font-size: 16px; }
-        
         table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
         th, td { border: 1px solid #000; padding: 10px; text-align: left; }
-        th { background: #f2f2f2; text-align: center; text-transform: uppercase; font-size: 14px; }
+        th { background: #f2f2f2; text-align: center; text-transform: uppercase; font-size: 13px; }
         .score { text-align: center; font-weight: bold; width: 80px; }
         .section { background: #e6f2ff; font-weight: bold; }
         .formula { font-size: 14px; color: #444; padding-left: 10px; margin-top: 5px; font-style: italic; }
         
         .comment-box { border: 1px solid #000; padding: 15px; background: #fdfdfd; line-height: 1.6; }
-        
         details { cursor: pointer; color: var(--blue); font-size: 13px; margin-top: 5px; }
         .sub-table { width: 100%; font-size: 12px; margin-top: 5px; }
         .sub-table td { border: 1px dotted #ccc; text-align: center; padding: 4px; }
 
-        .footer { max-width: 850px; margin: 40px auto 20px; text-align: center; font-family: Arial, sans-serif; font-size: 12.5px; color: #666; border-top: 1px solid #ddd; padding-top: 15px; line-height: 1.6; }
+        .footer { max-width: 850px; margin: 40px auto 20px; text-align: center; font-family: Arial, sans-serif; font-size: 12px; color: #666; border-top: 1px solid #ddd; padding-top: 15px; line-height: 1.6; }
         .footer b { color: #333; }
         
-        .btn-logout { display: block; width: 120px; margin: 30px auto 0; padding: 10px; text-align: center; background: #333; color: #fff; text-decoration: none; border-radius: 4px; font-family: Arial; }
-        
-        @media print { .btn-logout, .footer { display: none; } .report { box-shadow: none; margin: 0; padding: 20px; } }
+        .action-buttons { display: flex; justify-content: center; gap: 20px; margin-top: 30px; }
+        .btn { padding: 10px 20px; text-decoration: none; border-radius: 4px; font-family: Arial; font-weight: bold; cursor: pointer; border: none; font-size: 14px; color: #fff; }
+        .btn-print { background: var(--green); }
+        .btn-logout { background: #333; }
+
+        @media print {
+            body { background: #fff; padding: 0; }
+            .action-buttons, .footer, .login-box, details summary { display: none !important; }
+            .report { box-shadow: none; margin: 0; padding: 0; display: block !important; }
+            .access-timestamp { color: #000; }
+        }
     </style>
 </head>
 <body>
 
 <div class="login-box" id="loginBox">
-    <img src="https://hcmus.edu.vn/wp-content/uploads/2023/04/Logo-chinh-e1681638380305.png" alt="Logo HCMUS">
+    <img src="https://hcmus.edu.vn/wp-content/uploads/2023/04/Logo-chinh-e1681638380305.png" alt="Logo School">
     <h2 style="color:var(--blue); margin-top: 5px;">Tra Cứu Điểm Học Phần</h2>
     <input type="text" id="mssv" placeholder="Nhập MSSV">
     <input type="password" id="matkhau" placeholder="Mật khẩu (Trống nếu lần đầu)">
@@ -63,14 +68,16 @@
 <div class="report" id="reportBox">
     <div class="header-container">
         <img src="https://hcmus.edu.vn/wp-content/uploads/2023/04/Logo-chinh-e1681638380305.png" alt="Logo School" class="logo-side">
-        
         <div class="header-text">
             <h3>TRƯỜNG ĐẠI HỌC KHOA HỌC TỰ NHIÊN, ĐHQG-HCM<br>KHOA TOÁN - TIN HỌC</h3>
             <h2>PHIẾU ĐÁNH GIÁ ĐIỂM CHI TIẾT</h2>
             <p>Môn học: Kỹ năng làm việc nhóm và học tập (BAA0008)</p>
         </div>
-
         <img src="https://tuyensinh.hcmus.edu.vn/wp-content/uploads/2024/12/Khoa-Toan-Tin-hoc-568x400.png" alt="Logo Faculty" class="logo-side">
+    </div>
+
+    <div class="access-timestamp">
+        Thời gian truy cập: <span id="r-timestamp"></span>
     </div>
 
     <div class="info-grid">
@@ -141,7 +148,10 @@
         Giảng viên hướng dẫn<br><br><br>ThS. Đinh Quốc Tuấn
     </div>
 
-    <a href="#" class="btn-logout" onclick="location.reload()">Thoát tra cứu</a>
+    <div class="action-buttons">
+        <button class="btn btn-print" onclick="window.print()">In phiếu điểm</button>
+        <button class="btn btn-logout" onclick="location.reload()">Thoát tra cứu</button>
+    </div>
 </div>
 
 <div class="footer">
@@ -152,23 +162,20 @@
 </div>
 
 <script>
-    // THẦY DÁN LINK API MỚI VÀO ĐÂY NHÉ:
+    // THẦY DÁN LINK WEB APP CỦA GOOGLE SCRIPT VÀO ĐÂY:
     const URL_API = "https://script.google.com/macros/s/AKfycbx9EihNhBD4HmCil8_667bhjNCtsGxy44MrNUx9I3lCvsk6m4orgNbpLQTVw5t-i6p83w/exec";
 
     async function xuLyDangNhap() {
         const mssv = document.getElementById('mssv').value.trim();
         const msg = document.getElementById('msg');
         if(!mssv) return msg.innerText = "Vui lòng nhập MSSV!";
-        
-        msg.innerText = "Đang kết nối hệ thống...";
-        
+        msg.innerText = "Đang kết nối...";
         try {
             const res = await fetch(`${URL_API}?action=checkStatus&mssv=${mssv}`);
             const status = await res.json();
-
             if(status.status === "success") {
                 if(status.isFirstTime) {
-                    const newPass = prompt("Bạn chưa có mật khẩu! Vui lòng tạo mật khẩu mới:");
+                    const newPass = prompt("Chào bạn! Đây là lần đầu bạn đăng nhập. Vui lòng tạo mật khẩu mới:");
                     if(newPass) {
                         msg.innerText = "Đang tạo mật khẩu...";
                         await fetch(`${URL_API}?action=setupPass&mssv=${mssv}&pass=${newPass}`);
@@ -176,80 +183,69 @@
                     }
                 } else {
                     const pass = document.getElementById('matkhau').value.trim();
-                    if(!pass) return msg.innerText = "Bạn đã có mật khẩu, vui lòng nhập mật khẩu!";
+                    if(!pass) return msg.innerText = "Tài khoản đã có mật khẩu. Vui lòng nhập mật khẩu!";
                     traCuu(mssv, pass);
                 }
             } else { msg.innerText = status.message; }
-        } catch(e) {
-            msg.innerText = "Lỗi kết nối. Vui lòng thử lại!";
-        }
+        } catch(e) { msg.innerText = "Lỗi kết nối!"; }
     }
 
     async function traCuu(mssv, pass) {
         const msg = document.getElementById('msg');
-        msg.innerText = "Đang tải dữ liệu bảng điểm...";
+        msg.innerText = "Đang tải bảng điểm...";
         try {
             const response = await fetch(`${URL_API}?action=tracuu&mssv=${mssv}&pass=${pass}`);
             const result = await response.json();
             if(result.status === "success") {
                 const d = result.data;
+                
+                // GHI NHẬN THỜI GIAN TRUY CẬP
+                const bayGio = new Date();
+                document.getElementById('r-timestamp').innerText = bayGio.toLocaleString('vi-VN', {
+                    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
+                    hour: '2-digit', minute: '2-digit', second: '2-digit'
+                });
+
                 document.getElementById('r-hoten').innerText = d.Info.HoTen;
                 document.getElementById('r-mssv').innerText = d.Info.MSSV;
                 document.getElementById('r-lop').innerText = d.Info.Lop;
                 document.getElementById('r-nhom').innerText = d.Info.Nhom;
-                
                 document.getElementById('r-qt-tong').innerText = d.DiemQT;
                 document.getElementById('r-qt1').innerText = d.QT_ChuyenCan.Tong;
                 document.getElementById('r-qt2').innerText = d.QT_BaiTap.Tong;
                 document.getElementById('r-qt3').innerText = d.QT_DanhGiaCheo.Tong;
-                
                 document.getElementById('r-qt4').innerText = d.QT_TimHieuKN.Tong;
-                
                 document.getElementById('r-qt4a-nhom').innerText = d.QT_TimHieuKN.BC_Nhom;
                 document.getElementById('r-qt4a-dg').innerText = d.QT_TimHieuKN.BC_TuDG;
                 document.getElementById('r-qt4a').innerText = d.QT_TimHieuKN.BC_Tong;
                 document.getElementById('r-qt4b').innerText = d.QT_TimHieuKN.ThuyetTrinh;
-                
                 document.getElementById('r-ck').innerText = d.CK_DuAn.Tong;
-                
                 document.getElementById('r-ck1-nhom').innerText = d.CK_DuAn.BC_Nhom;
                 document.getElementById('r-ck1-dg').innerText = d.CK_DuAn.BC_TuDG;
                 document.getElementById('r-ck1').innerText = d.CK_DuAn.BC_Tong;
                 document.getElementById('r-ck2').innerText = d.CK_DuAn.ThuyetTrinh;
-                
                 document.getElementById('r-diemcong').innerText = d.DiemCong;
                 document.getElementById('r-tongket').innerText = d.TongKet;
                 document.getElementById('r-nhanxet').innerText = d.NhanXet;
 
                 let htmlCC = "<tr>"; d.QT_ChuyenCan.T.forEach((v, i) => htmlCC += `<td>T${i+1}: <strong style="color:var(--red)">${v}</strong></td>`); htmlCC += "</tr>";
                 document.getElementById('table-cc').innerHTML = htmlCC;
-                
                 let htmlBT = "<tr>"; d.QT_BaiTap.B.forEach((v, i) => htmlBT += `<td>B${i+1}: <strong style="color:var(--red)">${v}</strong></td>`); htmlBT += "</tr>";
                 document.getElementById('table-bt').innerHTML = htmlBT;
 
                 document.getElementById('loginBox').style.display = 'none';
                 document.getElementById('reportBox').style.display = 'block';
             } else { msg.innerText = result.message; }
-        } catch(e) {
-            msg.innerText = "Lỗi đường truyền dữ liệu!";
-        }
+        } catch(e) { msg.innerText = "Lỗi đường truyền!"; }
     }
 
     function quenMK() {
-        const mssv = prompt("Nhập MSSV để nhận lại mật khẩu qua email:");
+        const mssv = prompt("Nhập MSSV để nhận mật khẩu qua email:");
         if(mssv) {
             fetch(`${URL_API}?action=quenmatkhau&mssv=${mssv}`)
-            .then(res => res.json())
-            .then(data => alert(data.message))
-            .catch(err => alert("Có lỗi xảy ra, vui lòng thử lại sau."));
+            .then(res => res.json()).then(data => alert(data.message));
         }
     }
 </script>
-    <div class="footer">
-        Hệ thống Tra cứu điểm dự án - Môn học Kỹ năng làm việc nhóm & học tập (BAA0008)<br>
-        Người phát triển: <b>Thạc sĩ Đinh Quốc Tuấn</b><br>
-        <i>Hệ thống được vận hành vì mục đích giáo dục và phi lợi nhuận.</i><br>
-        Bản quyền © 2025-2026 HCMUS
-    </div>
 </body>
 </html>

@@ -115,80 +115,46 @@
     </div>
 
     <script>
-        async function hashData(text) {
-            const encoder = new TextEncoder();
-            const data = encoder.encode(text);
-            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-            const hashArray = Array.from(new Uint8Array(hashBuffer));
-            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-        }
-
+        // Điền link API Apps Script của thầy vào đây
+        const URL_API = "https://script.google.com/macros/s/AKfyc.../exec";
+        
         async function traCuu() {
             const mssv = document.getElementById('mssv').value.trim();
             const matkhau = document.getElementById('matkhau').value.trim();
             const errorDiv = document.getElementById('ketqua');
             
-            if(!mssv || !matkhau) {
-                errorDiv.innerText = "Vui lòng nhập đủ MSSV và Mật khẩu!";
-                return;
-            }
-
-            errorDiv.innerText = "Đang tra cứu...";
-            const chuoiBiMat = `${mssv}_${matkhau}`;
-            const hashName = await hashData(chuoiBiMat);
+            if(!mssv || !matkhau) return errorDiv.innerText = "Vui lòng nhập đủ thông tin!";
+            
+            errorDiv.innerText = "Đang tra cứu dữ liệu máy chủ...";
             
             try {
-                // Thay 'diem_sinh_vien' bằng đường dẫn thực tế trên repo của bạn
-                const response = await fetch(`diem_sinh_vien/${hashName}.json`);
-                if (response.ok) {
-                    const data = await response.json();
+                // Gọi API với action=tracuu
+                const response = await fetch(`${URL_API}?action=tracuu&mssv=${mssv}&pass=${matkhau}`);
+                const result = await response.json();
+                
+                if (result.status === "success") {
+                    const d = result.data;
+                    // ... (Đoạn code đổ dữ liệu vào các id t-mssv, r-hoten... giữ nguyên y hệt như cũ) ...
                     
-                    // Điền dữ liệu vào form
-                    document.getElementById('r-mssv').innerText = data.MSSV;
-                    document.getElementById('r-hoten').innerText = data.HoTen;
-                    document.getElementById('r-nhom').innerText = data.Nhom;
-                    document.getElementById('r-lop').innerText = data.Lop;
-                    
-                    document.getElementById('t-mssv').innerText = data.MSSV;
-                    document.getElementById('t-hoten').innerText = data.HoTen;
-                    document.getElementById('t-cc').innerText = data.DiemCC;
-                    document.getElementById('t-bt').innerText = data.DiemBT;
-                    document.getElementById('t-pb').innerText = data.DiemPB;
-                    document.getElementById('t-tt').innerText = data.DiemTT;
-                    document.getElementById('t-nhom').innerText = data.DiemNhom;
-                    document.getElementById('t-da').innerText = data.DiemDA;
-                    document.getElementById('t-cong').innerText = data.DiemCong;
-                    document.getElementById('t-tong').innerText = data.TongKet;
-                    
-                    document.getElementById('c-kn').innerText = data.NhanXetKN;
-                    document.getElementById('c-da').innerText = data.NhanXetDA;
-
-                    // Đổi hiển thị
                     document.getElementById('loginBox').style.display = 'none';
                     document.getElementById('reportBox').style.display = 'block';
                     errorDiv.innerText = "";
                 } else {
-                    errorDiv.innerText = "Sai MSSV hoặc Mật khẩu.";
+                    errorDiv.innerText = result.message; // Hiển thị lỗi từ máy chủ
                 }
-            } catch (error) {
-                errorDiv.innerText = "Có lỗi xảy ra khi kết nối dữ liệu.";
+            } catch (e) {
+                errorDiv.innerText = "Có lỗi kết nối mạng. Vui lòng thử lại.";
             }
         }
-
-        function quayLai() {
-            document.getElementById('reportBox').style.display = 'none';
-            document.getElementById('loginBox').style.display = 'block';
-            document.getElementById('mssv').value = '';
-            document.getElementById('matkhau').value = '';
-        }
-
+        
         function quenMatKhau() {
-            const mssv = prompt("Vui lòng nhập MSSV của bạn để lấy lại mật khẩu:");
+            const mssv = prompt("Nhập MSSV để nhận lại mật khẩu qua email:");
             if(mssv) {
-                // Dán link Apps Script của bạn vào biến dưới đây
-                const urlAppsScript = "https://script.google.com/macros/s/AKfycbz0ONmKfQQBz_Q7EdPgyj8rdtQNJ5Xeayspj8AnUMRp3pdib8lWCQ7BvYdmeeFToWZASQ/exec"; 
-                fetch(`${urlAppsScript}?mssv=${mssv}`)
-                .then(res => alert("Nếu MSSV hợp lệ, mật khẩu sẽ được gửi vào email sinh viên."));
+                // Gọi API với action=quenmatkhau
+                fetch(`${URL_API}?action=quenmatkhau&mssv=${mssv}`)
+                .then(res => res.json())
+                .then(data => alert(data.message))
+                .catch(err => alert("Có lỗi xảy ra khi gửi yêu cầu."));
             }
         }
     </script>

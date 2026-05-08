@@ -3,265 +3,225 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tra Cứu Điểm - Kỹ Năng Làm Việc Nhóm</title>
+    <title>Phiếu Điểm Sinh Viên - KNLVN</title>
     <style>
-        :root { --primary-color: #0056b3; --bg-color: #f4f5f7; --border-color: #000; }
-        body { font-family: 'Times New Roman', Times, serif; background-color: var(--bg-color); margin: 0; padding: 20px; }
+        :root { --blue: #0056b3; --red: #b30000; --green: #28a745; }
+        body { font-family: 'Times New Roman', Times, serif; background: #f4f5f7; padding: 20px; margin: 0; }
         
-        .login-container { max-width: 400px; margin: 50px auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; font-family: Arial, sans-serif; }
-        .login-container h2 { margin-top: 0; color: var(--primary-color); }
-        .login-container input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        .login-container button { padding: 12px 20px; background: var(--primary-color); color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; width: 100%; font-weight: bold;}
-        .login-container button:hover { background: #004494; }
-        .error { color: #d93025; font-size: 14px; margin-top: 10px; font-weight: bold;}
+        /* Chỉnh sửa Logo */
+        .logo-login { width: 150px; height: auto; margin-bottom: 10px; }
+        .logo-report { width: 180px; height: auto; margin-bottom: 10px; }
 
-        .report-container { max-width: 850px; margin: 0 auto; background: #fff; padding: 40px; box-shadow: 0 0 15px rgba(0,0,0,0.2); display: none; }
-        .header { text-align: center; margin-bottom: 20px; }
-        .header h3 { margin: 5px 0; font-size: 18px; text-transform: uppercase; }
-        .header h2 { margin: 15px 0; font-size: 22px; color: #b30000; }
-        .divider { border-top: 2px solid var(--border-color); width: 60%; margin: 10px auto; }
+        .login-box { max-width: 400px; margin: 50px auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center; }
+        .login-box input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        .login-box button { width: 100%; padding: 12px; background: var(--blue); color: #fff; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
         
-        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 20px; font-size: 16px; margin-bottom: 25px; }
+        .report { max-width: 850px; margin: 0 auto; background: #fff; padding: 40px; box-shadow: 0 0 20px rgba(0,0,0,0.15); display: none; }
+        .header { text-align: center; border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 20px; }
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; font-size: 16px; }
         
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 15.5px; }
-        th, td { border: 1px solid var(--border-color); padding: 10px; text-align: left; vertical-align: middle; }
-        th { background-color: #f2f2f2; font-weight: bold; text-align: center; text-transform: uppercase;}
-        .col-score { text-align: center; font-weight: bold; width: 15%; font-size: 16px;}
-        .section-row { background-color: #e6f2ff; font-weight: bold; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        th, td { border: 1px solid #000; padding: 10px; text-align: left; }
+        th { background: #f2f2f2; text-align: center; text-transform: uppercase; }
+        .score { text-align: center; font-weight: bold; width: 80px; }
+        .section { background: #e6f2ff; font-weight: bold; }
+        .formula { font-size: 14px; color: #444; padding-left: 10px; margin-top: 5px; font-style: italic; }
         
-        .note { font-size: 13.5px; color: #555; font-style: italic; margin-top: 4px; display: block;}
-        .formula { font-size: 14.5px; color: #000; margin-top: 6px; padding-left: 15px; }
+        .comment-box { border: 1px solid #000; padding: 15px; background: #fdfdfd; line-height: 1.6; }
+        .btn-logout { display: block; width: 120px; margin: 30px auto 0; padding: 10px; text-align: center; background: #333; color: #fff; text-decoration: none; border-radius: 4px; }
         
-        details { margin-top: 8px; cursor: pointer; color: var(--primary-color); }
-        summary { font-style: italic; outline: none; font-size: 14px; font-weight: bold;}
-        .sub-table { width: 100%; font-size: 14px; margin-top: 8px; border-collapse: collapse; background: #fafafa; color: #000; }
-        .sub-table td { border: 1px dotted #888; padding: 6px; text-align: center; width: 20%;}
-        .sub-table strong { color: #d93025; }
-
-        .comments { margin-top: 25px; font-size: 16px; text-align: justify; line-height: 1.6; border: 1px solid var(--border-color); padding: 15px; background: #fdfdfd;}
-        .signatures { margin-top: 30px; font-weight: bold; text-align: right; margin-right: 50px; font-size: 16px;}
-        
-        .btn-back { display: block; width: 150px; margin: 40px auto 0; padding: 12px; text-align: center; background: #333; color: white; border-radius: 4px; cursor: pointer; text-decoration: none; font-family: Arial, sans-serif; font-weight: bold;}
+        details { cursor: pointer; color: var(--blue); font-size: 13px; margin-top: 5px; }
+        .sub-table { width: 100%; font-size: 12px; margin-top: 5px; }
+        .sub-table td { border: 1px dotted #ccc; text-align: center; padding: 4px; }
     </style>
 </head>
 <body>
 
-    <div class="login-container" id="loginBox">
-        <h2>Tra Cứu Điểm Học Phần</h2>
-        <input type="text" id="mssv" placeholder="Nhập Mã số sinh viên" required>
-        <input type="password" id="matkhau" placeholder="Nhập Mật khẩu (Để trống nếu đăng nhập lần đầu)">
-        <button onclick="xuLyDangNhap()">Xem điểm</button>
-        <div id="ketqua" class="error"></div>
-        <p style="margin-top:15px; font-size:14px;"><a href="#" onclick="quenMatKhau()" style="color: #0056b3; text-decoration: none;">Quên mật khẩu?</a></p>
+<div class="login-box" id="loginBox">
+    <img src="https://hcmus.edu.vn/wp-content/uploads/2023/04/Logo-chinh-e1681638380305.png" alt="Logo HCMUS" class="logo-login">
+    
+    <h2 style="color:var(--blue); margin-top: 5px;">Tra Cứu Điểm Học Phần</h2>
+    <input type="text" id="mssv" placeholder="Nhập MSSV">
+    <input type="password" id="matkhau" placeholder="Mật khẩu (Trống nếu lần đầu)">
+    <button onclick="xuLyDangNhap()">XEM ĐIỂM</button>
+    <p id="msg" style="color:red; font-size:13px; margin-top:10px"></p>
+    <a href="#" onclick="quenMK()" style="font-size:13px; text-decoration:none">Quên mật khẩu?</a>
+</div>
+
+<div class="report" id="reportBox">
+    <div class="header">
+        <img src="https://hcmus.edu.vn/wp-content/uploads/2023/04/Logo-chinh-e1681638380305.png" alt="Logo HCMUS" class="logo-report">
+        
+        <h3 style="margin:0">TRƯỜNG ĐẠI HỌC KHOA HỌC TỰ NHIÊN, ĐHQG-HCM</h3>
+        <h2 style="color:var(--red); margin:10px 0">PHIẾU ĐÁNH GIÁ ĐIỂM CHI TIẾT</h2>
+        <p style="margin:0; font-style:italic">Môn: Kỹ năng làm việc nhóm và học tập (BAA0008)</p>
     </div>
 
-    <div class="report-container" id="reportBox">
-        <div class="header">
-            <h3>TRƯỜNG ĐẠI HỌC KHOA HỌC TỰ NHIÊN, ĐHQG-HCM</h3>
-            <div class="divider"></div>
-            <h2>PHIẾU ĐÁNH GIÁ ĐIỂM HỌC PHẦN</h2>
-            <p>Môn: Kỹ năng làm việc nhóm và học tập</p>
-        </div>
-
-        <div class="info-grid">
-            <div><strong>Họ và tên:</strong> <span id="r-hoten"></span></div>
-            <div><strong>Mã số sinh viên:</strong> <span id="r-mssv"></span></div>
-            <div><strong>Nhóm hoạt động:</strong> <span id="r-nhom"></span></div>
-            <div><strong>Lớp:</strong> <span id="r-lop"></span></div>
-        </div>
-
-        <table>
-            <thead>
-                <tr>
-                    <th>Thành phần điểm</th>
-                    <th class="col-score">Điểm số</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="section-row">
-                    <td>I. ĐIỂM QUÁ TRÌNH (50%)</td>
-                    <td class="col-score" id="r-qt-tong" style="color:var(--primary-color);"></td>
-                </tr>
-                <tr>
-                    <td>1. Chuyên cần (10%) 
-                        <details><summary>Xem chi tiết 10 tuần</summary>
-                            <table class="sub-table">
-                                <tr><td>T1:<strong id="qt1-1"></strong></td><td>T2:<strong id="qt1-2"></strong></td><td>T3:<strong id="qt1-3"></strong></td><td>T4:<strong id="qt1-4"></strong></td><td>T5:<strong id="qt1-5"></strong></td></tr>
-                                <tr><td>T6:<strong id="qt1-6"></strong></td><td>T7:<strong id="qt1-7"></strong></td><td>T8:<strong id="qt1-8"></strong></td><td>T9:<strong id="qt1-9"></strong></td><td>T10:<strong id="qt1-10"></strong></td></tr>
-                            </table>
-                        </details>
-                    </td>
-                    <td class="col-score" id="r-qt1"></td>
-                </tr>
-                <tr>
-                    <td>2. Bài tập tại lớp (10%)
-                        <details><summary>Xem chi tiết 10 bài tập</summary>
-                            <table class="sub-table">
-                                <tr><td>B1:<strong id="qt2-1"></strong></td><td>B2:<strong id="qt2-2"></strong></td><td>B3:<strong id="qt2-3"></strong></td><td>B4:<strong id="qt2-4"></strong></td><td>B5:<strong id="qt2-5"></strong></td></tr>
-                                <tr><td>B6:<strong id="qt2-6"></strong></td><td>B7:<strong id="qt2-7"></strong></td><td>B8:<strong id="qt2-8"></strong></td><td>B9:<strong id="qt2-9"></strong></td><td>B10:<strong id="qt2-10"></strong></td></tr>
-                            </table>
-                        </details>
-                    </td>
-                    <td class="col-score" id="r-qt2"></td>
-                </tr>
-                <tr>
-                    <td>3. Đánh giá chéo nhóm (10%) <div class="formula">- Điểm Tuần 8: <b><span id="r-qt3-t8"></span></b></div></td>
-                    <td class="col-score" id="r-qt3"></td>
-                </tr>
-                <tr>
-                    <td>4. Bài tìm hiểu kỹ năng (20%)
-                        <div class="formula">a) Quyển Báo cáo (10%) = Nhóm (<span id="r-qt4a-nhom" style="color:red"></span>) × Tự ĐG (<span id="r-qt4a-dg" style="color:red"></span>) $ \rightarrow $ <b><span id="r-qt4a"></span></b></div>
-                        <div class="formula">b) Thuyết trình cá nhân (10%) = <b><span id="r-qt4b"></span></b></div>
-                    </td>
-                    <td class="col-score">-</td>
-                </tr>
-
-                <tr class="section-row" style="background-color: #ffe6e6;">
-                    <td>II. BÁO CÁO DỰ ÁN CUỐI KỲ (50%)</td>
-                    <td class="col-score">-</td>
-                </tr>
-                <tr>
-                    <td>1. Quyển báo cáo (35%)
-                        <div class="formula">Điểm Nhóm (<span id="r-ck1-nhom" style="color:red"></span>) × Tự đánh giá (<span id="r-ck1-dg" style="color:red"></span>)</div>
-                    </td>
-                    <td class="col-score" id="r-ck1"></td>
-                </tr>
-                <tr>
-                    <td>2. Thuyết trình đại diện nhóm (15%)</td>
-                    <td class="col-score" id="r-ck2"></td>
-                </tr>
-
-                <tr class="section-row" style="background-color: #e6e6ff;">
-                    <td>III. ĐIỂM CỘNG PHẢN BIỆN (Tối đa +5%)</td>
-                    <td class="col-score" id="r-diemcong" style="color: #008000;"></td>
-                </tr>
-                
-                <tr style="background:#e6ffe6; font-size: 18px; font-weight:bold;">
-                    <td style="text-align: right; padding-right: 20px; text-transform: uppercase;">Tổng kết học phần:</td>
-                    <td class="col-score" id="r-tongket" style="color:red;"></td>
-                </tr>
-            </tbody>
-        </table>
-
-        <div class="comments">
-            <b style="text-transform: uppercase; color: #b30000;">Nhận xét / Đánh giá từ Giảng viên:</b><br><br>
-            <span id="r-nhanxet" style="font-style: italic; white-space: pre-wrap;"></span>
-        </div>
-
-        <div class="signatures">
-            Giảng viên hướng dẫn<br><br><br><br>
-            ThS. Đinh Quốc Tuấn
-        </div>
-
-        <a class="btn-back" onclick="quayLai()">Đăng xuất</a>
+    <div class="info-grid">
+        <div><b>Họ tên:</b> <span id="r-hoten"></span></div>
+        <div><b>MSSV:</b> <span id="r-mssv"></span></div>
+        <div><b>Lớp:</b> <span id="r-lop"></span></div>
+        <div><b>Nhóm:</b> <span id="r-nhom"></span></div>
     </div>
 
-    <script>
-        // === DÁN LINK API MỚI VÀO ĐÂY ===
-        const URL_API = "https://script.google.com/macros/s/AKfycbwUU3p7hfZ83So4ZzVyu_xBv98NeJpsK9wYTxJriiQKvU3RFHS-mMS7xclT_1bagYiN4w/exec";
+    <table>
+        <thead><tr><th>Nội dung đánh giá</th><th class="score">Điểm</th></tr></thead>
+        <tbody>
+            <tr class="section"><td>I. ĐIỂM QUÁ TRÌNH (50%)</td><td class="score" id="r-qt-tong" style="color:var(--blue)"></td></tr>
+            <tr>
+                <td>1. Chuyên cần (10%) <small>(≥ 7/10 buổi được trọn 10%)</small>
+                    <details><summary>Chi tiết 10 tuần</summary>
+                        <table class="sub-table" id="table-cc"></table>
+                    </details>
+                </td>
+                <td class="score" id="r-qt1"></td>
+            </tr>
+            <tr>
+                <td>2. Bài tập tại lớp (10%) <small>(≥ 5/10 bài được trọn 10%)</small>
+                    <details><summary>Chi tiết 10 bài tập</summary>
+                        <table class="sub-table" id="table-bt"></table>
+                    </details>
+                </td>
+                <td class="score" id="r-qt2"></td>
+            </tr>
+            <tr>
+                <td>3. Đánh giá chéo (Tuần 8) (10%)</td>
+                <td class="score" id="r-qt3"></td>
+            </tr>
+            <tr>
+                <td>4. Tìm hiểu kỹ năng (20%)
+                    <div class="formula">
+                        - Quyển báo cáo (10%): Nhóm (<span id="r-qt4a-nhom"></span>) × Tự ĐG (<span id="r-qt4a-dg"></span>) → <b><span id="r-qt4a"></span></b><br>
+                        - Thuyết trình cá nhân (10%): <b><span id="r-qt4b"></span></b>
+                    </div>
+                </td>
+                <td class="score" id="r-qt4"></td>
+            </tr>
 
-        async function xuLyDangNhap() {
-            const mssv = document.getElementById('mssv').value.trim();
-            if(!mssv) return document.getElementById('ketqua').innerText = "Vui lòng nhập MSSV!";
+            <tr class="section" style="background:#ffe6e6"><td>II. DỰ ÁN CUỐI KỲ (50%)</td><td class="score" id="r-ck" style="color:var(--blue)"></td></tr>
+            <tr>
+                <td>1. Quyển báo cáo dự án (35%)
+                    <div class="formula">Nhóm (<span id="r-ck1-nhom"></span>) × Tự ĐG (<span id="r-ck1-dg"></span>)</div>
+                </td>
+                <td class="score" id="r-ck1"></td>
+            </tr>
+            <tr><td>2. Thuyết trình đại diện nhóm (15%)</td><td class="score" id="r-ck2"></td></tr>
+
+            <tr class="section" style="background:#e6ffe6"><td>III. ĐIỂM CỘNG PHẢN BIỆN</td><td class="score" id="r-diemcong" style="color:var(--green)"></td></tr>
             
-            document.getElementById('ketqua').innerText = "Đang kiểm tra hệ thống...";
+            <tr style="font-size:20px; font-weight:bold; color:var(--red)">
+                <td style="text-align:right">TỔNG KẾT HỌC PHẦN:</td>
+                <td class="score" id="r-tongket"></td>
+            </tr>
+        </tbody>
+    </table>
 
-            try {
-                // Kiểm tra xem là lần đầu đăng nhập hay không
-                const resStatus = await fetch(`${URL_API}?action=checkStatus&mssv=${mssv}`);
-                const statusData = await resStatus.json();
+    <div class="comment-box">
+        <b style="color:var(--red);">NHẬN XÉT CỦA GIẢNG VIÊN:</b><br>
+        <span id="r-nhanxet" style="font-style:italic; white-space:pre-wrap"></span>
+    </div>
 
-                if(statusData.status === "success") {
-                    if(statusData.isFirstTime) {
-                        const newPass = prompt("Chào bạn! Đây là lần đầu tiên bạn đăng nhập hệ thống.\nVui lòng tạo mật khẩu mới:");
-                        if(newPass) {
-                            document.getElementById('ketqua').innerText = "Đang tạo mật khẩu...";
-                            const setupRes = await fetch(`${URL_API}?action=setupPass&mssv=${mssv}&pass=${newPass}`);
-                            const setupStatus = await setupRes.json();
-                            alert(setupStatus.message);
-                            if(setupStatus.status === "success") {
-                                // Tự động tra cứu sau khi tạo MK thành công
-                                traCuuDiem(mssv, newPass);
-                            }
-                        } else {
-                            document.getElementById('ketqua').innerText = "Bạn đã hủy quá trình tạo mật khẩu.";
-                        }
-                    } else {
-                        // Nếu đã có mật khẩu, bắt buộc phải lấy từ ô nhập
-                        const pass = document.getElementById('matkhau').value.trim();
-                        if(!pass) return document.getElementById('ketqua').innerText = "Tài khoản đã có mật khẩu. Vui lòng nhập mật khẩu!";
-                        traCuuDiem(mssv, pass);
+    <div style="text-align:right; margin-top:20px; font-weight:bold">
+        Giảng viên hướng dẫn<br><br><br>ThS. Đinh Thị Kim Liên
+        Trợ giảng<br><br><br>ThS. Đinh Quốc Tuấn
+    </div>
+
+    <a href="#" class="btn-logout" onclick="location.reload()">Đăng xuất</a>
+</div>
+
+<script>
+    // THẦY DÁN LINK API MỚI VÀO ĐÂY NHÉ:
+    const URL_API = "https://script.google.com/macros/s/AKfycbx9EihNhBD4HmCil8_667bhjNCtsGxy44MrNUx9I3lCvsk6m4orgNbpLQTVw5t-i6p83w/exec";
+
+    async function xuLyDangNhap() {
+        const mssv = document.getElementById('mssv').value.trim();
+        const msg = document.getElementById('msg');
+        if(!mssv) return msg.innerText = "Vui lòng nhập MSSV!";
+        
+        msg.innerText = "Đang kết nối hệ thống...";
+        
+        try {
+            const res = await fetch(`${URL_API}?action=checkStatus&mssv=${mssv}`);
+            const status = await res.json();
+
+            if(status.status === "success") {
+                if(status.isFirstTime) {
+                    const newPass = prompt("Bạn chưa có mật khẩu! Vui lòng tạo mật khẩu mới:");
+                    if(newPass) {
+                        msg.innerText = "Đang tạo mật khẩu...";
+                        await fetch(`${URL_API}?action=setupPass&mssv=${mssv}&pass=${newPass}`);
+                        traCuu(mssv, newPass);
                     }
                 } else {
-                    document.getElementById('ketqua').innerText = statusData.message;
+                    const pass = document.getElementById('matkhau').value.trim();
+                    if(!pass) return msg.innerText = "Bạn đã có mật khẩu, vui lòng nhập mật khẩu!";
+                    traCuu(mssv, pass);
                 }
-            } catch (e) {
-                document.getElementById('ketqua').innerText = "Lỗi kết nối. Vui lòng thử lại!";
-            }
+            } else { msg.innerText = status.message; }
+        } catch(e) {
+            msg.innerText = "Lỗi kết nối. Vui lòng thử lại!";
         }
+    }
 
-        async function traCuuDiem(mssv, pass) {
-            document.getElementById('ketqua').innerText = "Đang tải bảng điểm...";
-            try {
-                const response = await fetch(`${URL_API}?action=tracuu&mssv=${mssv}&pass=${pass}`);
-                const result = await response.json();
+    async function traCuu(mssv, pass) {
+        const msg = document.getElementById('msg');
+        msg.innerText = "Đang tải dữ liệu bảng điểm...";
+        try {
+            const response = await fetch(`${URL_API}?action=tracuu&mssv=${mssv}&pass=${pass}`);
+            const result = await response.json();
+            if(result.status === "success") {
+                const d = result.data;
+                document.getElementById('r-hoten').innerText = d.Info.HoTen;
+                document.getElementById('r-mssv').innerText = d.Info.MSSV;
+                document.getElementById('r-lop').innerText = d.Info.Lop;
+                document.getElementById('r-nhom').innerText = d.Info.Nhom;
                 
-                if (result.status === "success") {
-                    const d = result.data;
-                    document.getElementById('r-mssv').innerText = d.Info.MSSV;
-                    document.getElementById('r-hoten').innerText = d.Info.HoTen;
-                    document.getElementById('r-nhom').innerText = d.Info.Nhom;
-                    document.getElementById('r-lop').innerText = d.Info.Lop;
-                    
-                    document.getElementById('r-qt-tong').innerText = d.DiemQT;
-                    document.getElementById('r-qt1').innerText = d.QT_ChuyenCan.Tong;
-                    for(let i=1; i<=10; i++) document.getElementById(`qt1-${i}`).innerText = d.QT_ChuyenCan[`T${i}`];
-                    document.getElementById('r-qt2').innerText = d.QT_BaiTap.Tong;
-                    for(let i=1; i<=10; i++) document.getElementById(`qt2-${i}`).innerText = d.QT_BaiTap[`B${i}`];
-                    document.getElementById('r-qt3').innerText = d.QT_DanhGiaCheo.Tong;
-                    document.getElementById('r-qt3-t8').innerText = d.QT_DanhGiaCheo.T8;
-                    
-                    document.getElementById('r-qt4a').innerText = d.QT_TimHieuKN.BC_Tong;
-                    document.getElementById('r-qt4a-nhom').innerText = d.QT_TimHieuKN.BC_Nhom;
-                    document.getElementById('r-qt4a-dg').innerText = d.QT_TimHieuKN.BC_TuDG;
-                    document.getElementById('r-qt4b').innerText = d.QT_TimHieuKN.ThuyetTrinh;
-                    
-                    document.getElementById('r-ck1').innerText = d.CK_DuAn.BC_Tong;
-                    document.getElementById('r-ck1-nhom').innerText = d.CK_DuAn.BC_Nhom;
-                    document.getElementById('r-ck1-dg').innerText = d.CK_DuAn.BC_TuDG;
-                    document.getElementById('r-ck2').innerText = d.CK_DuAn.ThuyetTrinh;
-                    
-                    // --- 3 BIẾN MỚI BỔ SUNG ---
-                    document.getElementById('r-diemcong').innerText = d.DiemCong;
-                    document.getElementById('r-tongket').innerText = d.TongKet;
-                    document.getElementById('r-nhanxet').innerText = d.NhanXet;
+                document.getElementById('r-qt-tong').innerText = d.DiemQT;
+                document.getElementById('r-qt1').innerText = d.QT_ChuyenCan.Tong;
+                document.getElementById('r-qt2').innerText = d.QT_BaiTap.Tong;
+                document.getElementById('r-qt3').innerText = d.QT_DanhGiaCheo.Tong;
+                
+                document.getElementById('r-qt4').innerText = d.QT_TimHieuKN.Tong;
+                
+                document.getElementById('r-qt4a-nhom').innerText = d.QT_TimHieuKN.BC_Nhom;
+                document.getElementById('r-qt4a-dg').innerText = d.QT_TimHieuKN.BC_TuDG;
+                document.getElementById('r-qt4a').innerText = d.QT_TimHieuKN.BC_Tong;
+                document.getElementById('r-qt4b').innerText = d.QT_TimHieuKN.ThuyetTrinh;
+                
+                document.getElementById('r-ck').innerText = d.CK_DuAn.Tong;
+                
+                document.getElementById('r-ck1-nhom').innerText = d.CK_DuAn.BC_Nhom;
+                document.getElementById('r-ck1-dg').innerText = d.CK_DuAn.BC_TuDG;
+                document.getElementById('r-ck1').innerText = d.CK_DuAn.BC_Tong;
+                document.getElementById('r-ck2').innerText = d.CK_DuAn.ThuyetTrinh;
+                
+                document.getElementById('r-diemcong').innerText = d.DiemCong;
+                document.getElementById('r-tongket').innerText = d.TongKet;
+                document.getElementById('r-nhanxet').innerText = d.NhanXet;
 
-                    document.getElementById('loginBox').style.display = 'none';
-                    document.getElementById('reportBox').style.display = 'block';
-                    document.getElementById('ketqua').innerText = "";
-                } else {
-                    document.getElementById('ketqua').innerText = result.message;
-                }
-            } catch (e) {
-                document.getElementById('ketqua').innerText = "Lỗi kết nối mạng.";
-            }
-        }
+                let htmlCC = "<tr>"; d.QT_ChuyenCan.T.forEach((v, i) => htmlCC += `<td>T${i+1}: <strong style="color:var(--red)">${v}</strong></td>`); htmlCC += "</tr>";
+                document.getElementById('table-cc').innerHTML = htmlCC;
+                
+                let htmlBT = "<tr>"; d.QT_BaiTap.B.forEach((v, i) => htmlBT += `<td>B${i+1}: <strong style="color:var(--red)">${v}</strong></td>`); htmlBT += "</tr>";
+                document.getElementById('table-bt').innerHTML = htmlBT;
 
-        function quayLai() {
-            document.getElementById('reportBox').style.display = 'none';
-            document.getElementById('loginBox').style.display = 'block';
-            document.getElementById('matkhau').value = '';
+                document.getElementById('loginBox').style.display = 'none';
+                document.getElementById('reportBox').style.display = 'block';
+            } else { msg.innerText = result.message; }
+        } catch(e) {
+            msg.innerText = "Lỗi đường truyền dữ liệu!";
         }
+    }
 
-        function quenMatKhau() {
-            const mssv = prompt("Nhập Mã số sinh viên để nhận lại mật khẩu qua email:");
-            if(mssv) {
-                fetch(`${URL_API}?action=quenmatkhau&mssv=${mssv}`)
-                .then(res => res.json())
-                .then(data => alert(data.message))
-                .catch(err => alert("Có lỗi xảy ra khi gửi yêu cầu."));
-            }
+    function quenMK() {
+        const mssv = prompt("Nhập MSSV để nhận lại mật khẩu qua email:");
+        if(mssv) {
+            fetch(`${URL_API}?action=quenmatkhau&mssv=${mssv}`)
+            .then(res => res.json())
+            .then(data => alert(data.message))
+            .catch(err => alert("Có lỗi xảy ra, vui lòng thử lại sau."));
         }
-    </script>
+    }
+</script>
 </body>
 </html>

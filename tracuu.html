@@ -58,6 +58,7 @@
             const mssv = prompt("Vui lòng nhập MSSV của bạn để lấy lại mật khẩu:");
             if(mssv) {
                 // Sẽ thay URL_WEB_APP bằng link của Google Apps Script ở Giai đoạn 4
+                const urlAppsScript = "https://script.google.com/macros/s/AKfycbzR5YDF0k-7271IXoUpOmNz81TQcO2i2dv1CuEAbA6hUMJk3KIpYo8MZ0GccW4JW99F3g/exec";
                 fetch(`URL_WEB_APP?mssv=${mssv}`)
                 .then(res => alert("Nếu MSSV hợp lệ, mật khẩu sẽ được gửi vào email sinh viên của bạn."));
             }

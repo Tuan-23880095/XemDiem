@@ -8,51 +8,50 @@
         :root { --blue: #0056b3; --red: #b30000; --green: #28a745; }
         body { font-family: 'Times New Roman', Times, serif; background: #f4f5f7; padding: 20px; margin: 0; }
         
-        /* Chỉnh sửa Logo */
-        .logo-login { width: 150px; height: auto; margin-bottom: 10px; }
-        .logo-report { width: 180px; height: auto; margin-bottom: 10px; }
-
+        /* Giao diện Đăng nhập */
         .login-box { max-width: 400px; margin: 50px auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center; }
+        .login-box img { width: 140px; margin-bottom: 10px; }
         .login-box input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
         .login-box button { width: 100%; padding: 12px; background: var(--blue); color: #fff; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
         
+        /* Giao diện Phiếu Điểm A4 */
         .report { max-width: 850px; margin: 0 auto; background: #fff; padding: 40px; box-shadow: 0 0 20px rgba(0,0,0,0.15); display: none; }
-        .header { text-align: center; border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 20px; }
+        
+        /* Cấu trúc Header 2 Logo */
+        .header-container { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #000; padding-bottom: 15px; margin-bottom: 20px; }
+        .logo-side { width: 120px; height: auto; }
+        .header-text { text-align: center; flex: 1; padding: 0 10px; }
+        .header-text h3 { margin: 0; font-size: 16px; text-transform: uppercase; line-height: 1.4; }
+        .header-text h2 { margin: 10px 0 5px 0; font-size: 22px; color: var(--red); }
+        .header-text p { margin: 0; font-style: italic; font-size: 15px; }
+
         .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; font-size: 16px; }
         
         table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
         th, td { border: 1px solid #000; padding: 10px; text-align: left; }
-        th { background: #f2f2f2; text-align: center; text-transform: uppercase; }
+        th { background: #f2f2f2; text-align: center; text-transform: uppercase; font-size: 14px; }
         .score { text-align: center; font-weight: bold; width: 80px; }
         .section { background: #e6f2ff; font-weight: bold; }
         .formula { font-size: 14px; color: #444; padding-left: 10px; margin-top: 5px; font-style: italic; }
         
         .comment-box { border: 1px solid #000; padding: 15px; background: #fdfdfd; line-height: 1.6; }
-        .btn-logout { display: block; width: 120px; margin: 30px auto 0; padding: 10px; text-align: center; background: #333; color: #fff; text-decoration: none; border-radius: 4px; }
         
         details { cursor: pointer; color: var(--blue); font-size: 13px; margin-top: 5px; }
         .sub-table { width: 100%; font-size: 12px; margin-top: 5px; }
         .sub-table td { border: 1px dotted #ccc; text-align: center; padding: 4px; }
-        /* Chân trang Footer */
-        .footer {
-            max-width: 850px;
-            margin: 40px auto 20px;
-            text-align: center;
-            font-family: Arial, sans-serif;
-            font-size: 12.5px;
-            color: #666;
-            border-top: 1px solid #ddd;
-            padding-top: 15px;
-            line-height: 1.6;
-        }
+
+        .footer { max-width: 850px; margin: 40px auto 20px; text-align: center; font-family: Arial, sans-serif; font-size: 12.5px; color: #666; border-top: 1px solid #ddd; padding-top: 15px; line-height: 1.6; }
         .footer b { color: #333; }
+        
+        .btn-logout { display: block; width: 120px; margin: 30px auto 0; padding: 10px; text-align: center; background: #333; color: #fff; text-decoration: none; border-radius: 4px; font-family: Arial; }
+        
+        @media print { .btn-logout, .footer { display: none; } .report { box-shadow: none; margin: 0; padding: 20px; } }
     </style>
 </head>
 <body>
 
 <div class="login-box" id="loginBox">
-    <img src="https://hcmus.edu.vn/wp-content/uploads/2023/04/Logo-chinh-e1681638380305.png" alt="Logo HCMUS" class="logo-login">
-    
+    <img src="https://hcmus.edu.vn/wp-content/uploads/2023/04/Logo-chinh-e1681638380305.png" alt="Logo HCMUS">
     <h2 style="color:var(--blue); margin-top: 5px;">Tra Cứu Điểm Học Phần</h2>
     <input type="text" id="mssv" placeholder="Nhập MSSV">
     <input type="password" id="matkhau" placeholder="Mật khẩu (Trống nếu lần đầu)">
@@ -62,13 +61,16 @@
 </div>
 
 <div class="report" id="reportBox">
-    <div class="header">
-        <img src="https://hcmus.edu.vn/wp-content/uploads/2023/04/Logo-chinh-e1681638380305.png" alt="Logo HCMUS" class="logo-report">
+    <div class="header-container">
+        <img src="https://hcmus.edu.vn/wp-content/uploads/2023/04/Logo-chinh-e1681638380305.png" alt="Logo School" class="logo-side">
         
-        <h3 style="margin:0">TRƯỜNG ĐẠI HỌC KHOA HỌC TỰ NHIÊN, ĐHQG-HCM</h3>
-        <h2 style="color:var(--red); margin:10px 0">NĂM HỌC 2025-2026</h2>
-        <h2 style="color:var(--red); margin:10px 0">PHIẾU ĐÁNH GIÁ ĐIỂM CHI TIẾT</h2>
-        <p style="margin:0; font-style:italic">Môn: Kỹ năng làm việc nhóm và học tập (BAA0008)</p>
+        <div class="header-text">
+            <h3>TRƯỜNG ĐẠI HỌC KHOA HỌC TỰ NHIÊN, ĐHQG-HCM<br>KHOA TOÁN - TIN HỌC</h3>
+            <h2>PHIẾU ĐÁNH GIÁ ĐIỂM CHI TIẾT</h2>
+            <p>Môn học: Kỹ năng làm việc nhóm và học tập (BAA0008)</p>
+        </div>
+
+        <img src="https://tuyensinh.hcmus.edu.vn/wp-content/uploads/2024/12/Khoa-Toan-Tin-hoc-568x400.png" alt="Logo Faculty" class="logo-side">
     </div>
 
     <div class="info-grid">
@@ -136,11 +138,17 @@
     </div>
 
     <div style="text-align:right; margin-top:20px; font-weight:bold">
-        Giảng viên hướng dẫn: ThS. Đinh Thị Kim Liên<br>
-        Trợ giảng: ThS. Đinh Quốc Tuấn<br>
+        Giảng viên hướng dẫn<br><br><br>ThS. Đinh Quốc Tuấn
     </div>
 
-    <a href="#" class="btn-logout" onclick="location.reload()">Đăng xuất</a>
+    <a href="#" class="btn-logout" onclick="location.reload()">Thoát tra cứu</a>
+</div>
+
+<div class="footer">
+    Hệ thống Tra cứu điểm dự án - Môn học Kỹ năng làm việc nhóm & học tập (BAA0008)<br>
+    Người phát triển: <b>Thạc sĩ Đinh Quốc Tuấn</b><br>
+    <i>Hệ thống được vận hành vì mục đích giáo dục và phi lợi nhuận.</i><br>
+    Bản quyền © 2025-2026 HCMUS
 </div>
 
 <script>

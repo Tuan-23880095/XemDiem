@@ -8,6 +8,26 @@
         :root { --blue: #0056b3; --red: #b30000; --green: #218838; }
         body { font-family: 'Times New Roman', Times, serif; background: #f4f5f7; padding: 20px; margin: 0; }
         
+                /* Khung chứa tiêu đề đăng nhập gồm 2 logo và chữ */
+        .login-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+        
+        .login-header img {
+            width: 65px; /* Điều chỉnh kích thước logo cho phù hợp với khung login */
+            height: auto;
+        }
+        
+        .login-header h2 {
+            flex: 1;
+            font-size: 16px; /* Cỡ chữ vừa phải để chia 3 dòng không bị quá to */
+            margin: 0;
+            line-height: 1.5;
+            text-align: center;
+        }
         .login-box { max-width: 400px; margin: 50px auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center; }
         .login-box img { width: 140px; margin-bottom: 10px; }
         .login-box input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
@@ -55,16 +75,23 @@
 </head>
 <body>
 
-<div class="login-box" id="loginBox">
-    <img src="https://hcmus.edu.vn/wp-content/uploads/2023/04/Logo-chinh-e1681638380305.png" alt="Logo School" class="logo-side">
-    <h2 style="color:var(--blue); margin-top: 5px;">Tra Cứu Điểm Học Phần Kỹ năng làm việc nhóm và học tập (BAA0008)</h2>
-    <img src="https://tuyensinh.hcmus.edu.vn/wp-content/uploads/2024/12/Khoa-Toan-Tin-hoc-568x400.png" alt="Logo Faculty" class="logo-side">
+<div class="login-box" id="loginBox" style="max-width: 500px;"> <div class="login-header">
+        <img src="https://hcmus.edu.vn/wp-content/uploads/2023/04/Logo-chinh-e1681638380305.png" alt="Logo School">
+        
+        <h2 style="color:var(--blue);">
+            Tra Cứu Điểm Học Phần<br>
+            Kỹ năng làm việc nhóm và học tập<br>
+            (BAA0008)
+        </h2>
+        
+        <img src="https://tuyensinh.hcmus.edu.vn/wp-content/uploads/2024/12/Khoa-Toan-Tin-hoc-568x400.png" alt="Logo Faculty">
+    </div>
+
     <input type="text" id="mssv" placeholder="Nhập MSSV">
     <input type="password" id="matkhau" placeholder="Mật khẩu (Trống nếu lần đầu)">
     <button onclick="xuLyDangNhap()">XEM ĐIỂM</button>
     <p id="msg" style="color:red; font-size:13px; margin-top:10px"></p>
     <a href="#" onclick="quenMK()" style="font-size:13px; text-decoration:none">Quên mật khẩu?</a>
-
 </div>
 
 <div class="report" id="reportBox">
